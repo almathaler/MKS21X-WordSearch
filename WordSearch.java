@@ -7,10 +7,10 @@ public class WordSearch{
      *@param col is the starting width of the WordSearch
      */
     public WordSearch(int rows,int cols){
-      char[][] data = new char[rows][cols];
+      data = new char[rows][cols];
       for (int i = 0; i<data.length; i++) {
         for (int j = 0; j<data[i].length; j++) {
-          char[i][j] = '_';
+          data[i][j] = '_';
         }
       }
     }
@@ -19,7 +19,7 @@ public class WordSearch{
     private void clear(){
       for (int i = 0; i<data.length; i++) {
         for (int j = 0; j<data[i].length; j++) {
-          char[i][j] = '_';
+          data[i][j] = '_';
         }
       }
     }
@@ -56,21 +56,17 @@ public class WordSearch{
       //  return false;
       //}
       for (int i = 0; i<word.length(); i++) {
-        if (col+i < data[row].length) {
-          if (word.charAt(i) == data[row][col+i] || data[row][col+i] == '_') {
-            data[row][col+i] = word.charAt(i);
-          }
-          else {
-            return false;
-          }
-        }
-        else {
+        if (col+i >= data[row].length || (word.charAt(i) != data[row][col+i] && data[row][col+i] != '_')) {
           return false;
         }
       }
+      for (int i = 0; i<word.length(); i++) {
+            data[row][col+i] = word.charAt(i);
+      }
       return true;
-
     }
+
+
 
    /**Attempts to add a given word to the specified position of the WordGrid.
      *The word is added from top to bottom, must fit on the WordGrid, and must
@@ -85,17 +81,12 @@ public class WordSearch{
      */
     public boolean addWordVertical(String word,int row, int col){
       for (int i = 0; i<word.length(); i++) {
-        if (row+i < data.length) {
-          if (word.charAt(i) == data[row+i][col] || data[row+i][col] == '_') {
-            data[row+i][col] = word.charAt(i);
-          }
-          else {
-            return false;
-          }
-        }
-        else {
+        if (row+i >= data.length || (word.charAt(i) != data[row+i][col] && data[row+i][col] != '_')) {
           return false;
         }
+      }
+      for (int i = 0; i<word.length(); i++) {
+        data[row+i][col] = word.charAt(i);
       }
     return true;
     }
