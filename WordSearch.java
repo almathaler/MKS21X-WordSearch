@@ -125,9 +125,9 @@ public class WordSearch{
           (c+(word.length() * colIncrement)) < -1 || //word.length() doesn't start at 0 it starts at 1, modify it to start at 0
           (r+(word.length() * rowIncrement)) > data.length ||
           (r+(word.length() * rowIncrement)) < -1 || //same here, since datastarts at 0 not 1 we want word to be in line w that
-          (rowIncrement == 0 && colIncrement == 0)) ||
+          (rowIncrement == 0 && colIncrement == 0) ||
           word.equals("") ||
-          word.equals(" ")
+          word.equals(" "))
           {
             return false;
       }
@@ -144,6 +144,63 @@ public class WordSearch{
       }
     return true;
     }
+
+    /**private method Attempts to add all given words using the addWord method.
+     *Does so by cycling through random row, col, rowIncrement and colIncrement parameters
+     *Over and over until a successfull addition occurs. Then selects another word from given
+     *text file randomly and attempts to add that. Will cease trying after X amount of failed attempts
+     *
+     *@return void
+     */
+     public void addAllWords() {
+       while (wordsToAdd.size() > 0) {
+         int wtaIndex = randgen.nextInt() % wordsToAdd.size();
+         if (wtaIndex<0) {
+           wtaIndex = wtaIndex * -1;
+         }
+         String word = wordsToAdd.get(wtaIndex);
+         while (wordsToAdd.contains(word)) {
+           for (int j = 0; j<5; j++) {
+             int rowIncrement = randgen.nextInt() % 3;
+             if (rowIncrement == 2) {
+               rowIncrement = -1;
+             }
+             int colIncrement = randgen.nextInt() % 3;
+             if (colIncrement == 2) {
+               colIncrement = -1;
+             }
+             for (int i = 0; i<(data.length * data[0].length); i++) {
+               int r = i % data.length;
+               int c = i % data[0].length;
+               if (this.addWord(word, r, c, rowIncrement, colIncrement)) {
+                 wordsToAdd.remove(word);
+                 wordsAdded.add(word);
+                 i = data.length * data[0].length;
+                 //fix that it's adding words with letters not consecutive and adding same word over and over
+               }
+             }
+           }
+           if (wordsToAdd.contains(word)) {
+             wordsToAdd.remove(word);
+           }
+           //do stuff
+           //if done correctly, wordsToAdd.remove(word), wordsAdded.add(word)
+         }
+       }
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**Attempts to add a given word to the specified position of the WordGrid.
