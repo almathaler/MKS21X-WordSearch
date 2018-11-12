@@ -1,8 +1,8 @@
-import java.util.random;
-import java.util.scanner;
-import java.util.arraylist;
-import java.io.file;
-import java.filenotfoundexception;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class WordSearch{
     private char[][]data;
     //the random seed used to produce this WordSearch
@@ -12,10 +12,10 @@ public class WordSearch{
     private Random randgen;
 
     //all words from a text file get added to wordsToAdd, indicating that they have not yet been added
-    private ArrayList<String>wordsToAdd;
+    private ArrayList<String>wordsToAdd = new ArrayList<String>();
 
     //all words that were successfully added get moved into wordsAdded.
-    private ArrayList<String>wordsAdded;
+    private ArrayList<String>wordsAdded = new ArrayList<String>();
 
     /**Initialize the grid to the size specified
      *and fill all of the positions with '_'
@@ -30,15 +30,16 @@ public class WordSearch{
             data[i][j] = '_';
           }
         }
-        Random rng = new Random();
+        randgen = new Random();
         File f = new File(fileName);
         Scanner in = new Scanner(f);
         while (in.hasNext()) {
-          String word = in.next();
+          String word = in.nextLine();
+          word = word.trim();
           wordsToAdd.add(word);
         }
       }catch(FileNotFoundException e){
-        System.out.println("File not found: " + filename);
+        System.out.println("File not found: " + fileName);
         System.exit(1);
       }
     }
@@ -51,7 +52,7 @@ public class WordSearch{
             data[i][j] = '_';
           }
         }
-        Random rng = new Random(randSeed);
+        randgen = new Random(randSeed);
         File f = new File(fileName);
         Scanner in = new Scanner(f);
         while (in.hasNext()) {
@@ -59,9 +60,13 @@ public class WordSearch{
           wordsToAdd.add(word);
         }
       }catch(FileNotFoundException e){
-        System.out.println("File not found: " + filename);
+        System.out.println("File not found: " + fileName);
         System.exit(1);
       }
+    }
+
+    public ArrayList<String> getWordsToAdd() {
+      return wordsToAdd;
     }
 
     /**Set all values in the WordSearch to underscores'_'*/
@@ -80,10 +85,11 @@ public class WordSearch{
     public String toString(){
       String formatted = "";
       for (int i = 0; i<data.length; i++) {
+        formatted+="| ";
         for (int j = 0; j<data[i].length; j++) {
           formatted+=(data[i][j] + " ");
         }
-        formatted+="\n";
+        formatted+=" |\n";
       }
       return formatted;
     }
