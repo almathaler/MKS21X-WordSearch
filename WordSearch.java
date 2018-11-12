@@ -91,6 +91,17 @@ public class WordSearch{
         }
         formatted+=" |\n";
       }
+      formatted+="Words: ";
+      for (int i = 0; i<wordsToAdd.size(); i++) {
+        if (i < wordsToAdd.size() - 1) {
+          String word = wordsToAdd.get(i);
+          formatted+=word.toUpperCase() + ", ";
+        }
+        else {
+          String word = wordsToAdd.get(i);
+          formatted+=word.toUpperCase();
+        }
+      }
       return formatted;
     }
 
