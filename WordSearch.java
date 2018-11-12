@@ -160,7 +160,7 @@ public class WordSearch{
          while (wordsToAdd.contains(word)) {
            boolean added = false;
            int j = 0;
-           while (j<9 && !added) {
+           while (j<15 && !added) {
              int rowIncrement = Math.abs(randgen.nextInt() % 3);
              if (rowIncrement == 2) {
                rowIncrement = -1;

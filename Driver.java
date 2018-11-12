@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Driver {
   public static void main(String[] args) {
-    WordSearch ws = new WordSearch(12, 12, "words.txt");
+    WordSearch ws = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), "words.txt");
     ArrayList<String>wta = ws.getWordsToAdd();
     System.out.println("Words to add: " + wta);
     System.out.println(ws);
