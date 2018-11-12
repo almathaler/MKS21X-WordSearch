@@ -1,3 +1,4 @@
+import java.lang.Math;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -92,13 +93,13 @@ public class WordSearch{
         formatted+=" |\n";
       }
       formatted+="Words: ";
-      for (int i = 0; i<wordsToAdd.size(); i++) {
-        if (i < wordsToAdd.size() - 1) {
-          String word = wordsToAdd.get(i);
+      for (int i = 0; i<wordsAdded.size(); i++) {
+        if (i < wordsAdded.size() - 1) {
+          String word = wordsAdded.get(i);
           formatted+=word.toUpperCase() + ", ";
         }
         else {
-          String word = wordsToAdd.get(i);
+          String word = wordsAdded.get(i);
           formatted+=word.toUpperCase();
         }
       }
@@ -154,18 +155,17 @@ public class WordSearch{
      */
      public void addAllWords() {
        while (wordsToAdd.size() > 0) {
-         int wtaIndex = randgen.nextInt() % wordsToAdd.size();
-         if (wtaIndex<0) {
-           wtaIndex = wtaIndex * -1;
-         }
+         int wtaIndex = Math.abs(randgen.nextInt() % wordsToAdd.size());
          String word = wordsToAdd.get(wtaIndex);
          while (wordsToAdd.contains(word)) {
-           for (int j = 0; j<5; j++) {
-             int rowIncrement = randgen.nextInt() % 3;
+           boolean added = false;
+           int j = 0;
+           while (j<9 && !added) {
+             int rowIncrement = Math.abs(randgen.nextInt() % 3);
              if (rowIncrement == 2) {
                rowIncrement = -1;
              }
-             int colIncrement = randgen.nextInt() % 3;
+             int colIncrement = Math.abs(randgen.nextInt() % 3);
              if (colIncrement == 2) {
                colIncrement = -1;
              }
@@ -175,10 +175,13 @@ public class WordSearch{
                if (this.addWord(word, r, c, rowIncrement, colIncrement)) {
                  wordsToAdd.remove(word);
                  wordsAdded.add(word);
+                 //System.out.println(word + ", " + rowIncrement + ", " + colIncrement);
                  i = data.length * data[0].length;
+                 added = true;
                  //fix that it's adding words with letters not consecutive and adding same word over and over
                }
              }
+             j++;
            }
            if (wordsToAdd.contains(word)) {
              wordsToAdd.remove(word);
