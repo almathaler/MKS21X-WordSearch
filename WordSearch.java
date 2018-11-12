@@ -104,6 +104,44 @@ public class WordSearch{
       }
       return formatted;
     }
+    /**Attempts to add a given word to the specified position of the WordGrid.
+     *The word is added in the direction rowIncrement,colIncrement
+     *Words must have a corresponding letter to match any letters that it overlaps.
+     *
+     *@param word is any text to be added to the word grid.
+     *@param row is the vertical locaiton of where you want the word to start.
+     *@param col is the horizontal location of where you want the word to start.
+     *@param rowIncrement is -1,0, or 1 and represents the displacement of each letter in the row direction
+     *@param colIncrement is -1,0, or 1 and represents the displacement of each letter in the col direction
+     *@return true when: the word is added successfully.
+     *        false when: the word doesn't fit, OR  rowchange and colchange are both 0,
+     *        OR there are overlapping letters that do not match
+     */
+     //REMEMBER TO TURN THIS BACK INTO PUBLIC AFTER DOING DRIVER_TEST!!!!!
+    private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
+      if (r>data.length ||
+          c>data[r].length ||
+          (c+(word.length() * colIncrement)) > data[r].length ||
+          (c+(word.length() * colIncrement)) < -1 || //word.length() doesn't start at 0 it starts at 1, modify it to start at 0
+          (r+(word.length() * rowIncrement)) > data.length ||
+          (r+(word.length() * rowIncrement)) < -1 || //same here, since datastarts at 0 not 1 we want word to be in line w that
+          (rowIncrement == 0 && colIncrement == 0))
+          {
+            return false;
+      }
+      else {
+        for (int i = 0; i<word.length(); i++) {
+          if (word.charAt(i) != data[r + (rowIncrement * i)][c + (colIncrement * i)] &&
+              data[r + (rowIncrement * i)][c + (colIncrement * i)] != '_'){
+                return false;
+          }
+        }
+        for (int i = 0; i<word.length(); i++) {
+          data[r + (rowIncrement * i)][c + (colIncrement * i)] = word.charAt(i);
+        }
+      }
+    return true;
+    }
 
 
     /**Attempts to add a given word to the specified position of the WordGrid.

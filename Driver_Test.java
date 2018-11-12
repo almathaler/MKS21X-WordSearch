@@ -849,6 +849,7 @@ public class Driver_Test {
 
       System.out.println("WordSearch WSe2 = new WordSearch(args[0],args[1],\"words.txt\")");
       System.out.println(WSe2);
+    }
       /*
         example:
         java Driver_Test 10 12
@@ -878,7 +879,7 @@ public class Driver_Test {
         |_ _ _ _ _ _|
         |_ _ _ _ _ _|
       */
-
+/*
       WSe2.addAllWords();
       System.out.println(WSe2);
       // hopefully filled WordSearch
