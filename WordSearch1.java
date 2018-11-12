@@ -3,7 +3,7 @@ import java.util.scanner;
 import java.util.arraylist;
 import java.io.file;
 import java.filenotfoundexception;
-public class WordSearch{
+public class WordSearch1{
     private char[][]data;
     //the random seed used to produce this WordSearch
     private int seed;
@@ -22,45 +22,12 @@ public class WordSearch{
      *@param row is the starting height of the WordSearch
      *@param col is the starting width of the WordSearch
      */
-    public WordSearch(int rows,int cols, String fileName){
-      try {
-        data = new char[rows][cols];
-        for (int i = 0; i<data.length; i++) {
-          for (int j = 0; j<data[i].length; j++) {
-            data[i][j] = '_';
-          }
+    public WordSearch(int rows,int cols){
+      data = new char[rows][cols];
+      for (int i = 0; i<data.length; i++) {
+        for (int j = 0; j<data[i].length; j++) {
+          data[i][j] = '_';
         }
-        Random rng = new Random();
-        File f = new File(fileName);
-        Scanner in = new Scanner(f);
-        while (in.hasNext()) {
-          String word = in.next();
-          wordsToAdd.add(word);
-        }
-      }catch(FileNotFoundException e){
-        System.out.println("File not found: " + filename);
-        System.exit(1);
-      }
-    }
-
-    public WordSearch(int rows,int cols, String fileName, int randSeed){
-      try {
-        data = new char[rows][cols];
-        for (int i = 0; i<data.length; i++) {
-          for (int j = 0; j<data[i].length; j++) {
-            data[i][j] = '_';
-          }
-        }
-        Random rng = new Random(randSeed);
-        File f = new File(fileName);
-        Scanner in = new Scanner(f);
-        while (in.hasNext()) {
-          String word = in.next();
-          wordsToAdd.add(word);
-        }
-      }catch(FileNotFoundException e){
-        System.out.println("File not found: " + filename);
-        System.exit(1);
       }
     }
 

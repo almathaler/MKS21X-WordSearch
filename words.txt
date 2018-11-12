@@ -1,0 +1,11 @@
+tie
+sock
+polo
+belt
+jeans
+pants
+dress
+blouse
+tights
+legings
+bracelet
