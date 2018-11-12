@@ -125,7 +125,9 @@ public class WordSearch{
           (c+(word.length() * colIncrement)) < -1 || //word.length() doesn't start at 0 it starts at 1, modify it to start at 0
           (r+(word.length() * rowIncrement)) > data.length ||
           (r+(word.length() * rowIncrement)) < -1 || //same here, since datastarts at 0 not 1 we want word to be in line w that
-          (rowIncrement == 0 && colIncrement == 0))
+          (rowIncrement == 0 && colIncrement == 0)) ||
+          word.equals("") ||
+          word.equals(" ")
           {
             return false;
       }
