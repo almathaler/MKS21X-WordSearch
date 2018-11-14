@@ -1,10 +1,32 @@
 import java.util.ArrayList;
 public class Driver {
   public static void main(String[] args) {
-    WordSearch ws = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), "words.txt");
+    if (args.length  == 3) {
+      WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                    Integer.parseInt(args[1]), args[2]);
+      System.out.println(ws);
+    }
+    else if (args.length == 4) {
+      WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                      Integer.parseInt(args[1]), args[2],
+                                      Integer.parseInt(args[3]));
+      System.out.println(ws);
+    }
+    else if (args.length == 5) {
+      WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                      Integer.parseInt(args[1]), args[2],
+                                      Integer.parseInt(args[3]), args[4]);
+      System.out.println(ws);
+    }
+    else {
+      System.out.println("Please exit the program and retry, the order of parameters must be either: ");
+      System.out.println("java Driver rows(int) cols(int) filename(string)");
+      System.out.println("java Driver rows(int) cols(int) filename(string) randomSeed(int)");
+      System.out.println("java Driver rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+    }
     //ArrayList<String>wta = ws.getWordsToAdd();
     //System.out.println("Words to add: " + wta);
-    System.out.println(ws);
+    //System.out.println(ws);
     //System.out.println("now testing addAllWords: ");
     //ws.addAllWords();
     //System.out.println(ws);

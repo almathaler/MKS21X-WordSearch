@@ -23,7 +23,7 @@ public class WordSearch{
      *@param row is the starting height of the WordSearch
      *@param col is the starting width of the WordSearch
      */
-    public WordSearch(int rows,int cols, String fileName){
+    public WordSearch(int rows, int cols, String fileName){
       try {
         data = new char[rows][cols];
         for (int i = 0; i<data.length; i++) {
@@ -31,7 +31,9 @@ public class WordSearch{
             data[i][j] = '_';
           }
         }
-        randgen = new Random();
+        Random seedMake = new Random();
+        seed = seedMake.nextInt() % 100;
+        randgen = new Random(seed);
         File f = new File(fileName);
         Scanner in = new Scanner(f);
         while (in.hasNext()) {
@@ -56,7 +58,8 @@ public class WordSearch{
             data[i][j] = '_';
           }
         }
-        randgen = new Random(randSeed);
+        seed = randSeed;
+        randgen = new Random(seed);
         File f = new File(fileName);
         Scanner in = new Scanner(f);
         while (in.hasNext()) {
@@ -73,13 +76,42 @@ public class WordSearch{
       }
     }
 
+    public WordSearch(int rows,int cols, String fileName, int randSeed, String answers){
+      try {
+        data = new char[rows][cols];
+        for (int i = 0; i<data.length; i++) {
+          for (int j = 0; j<data[i].length; j++) {
+            data[i][j] = '_';
+          }
+        }
+        seed = randSeed;
+        randgen = new Random(seed);
+        File f = new File(fileName);
+        Scanner in = new Scanner(f);
+        while (in.hasNext()) {
+          String word = in.next();
+          word = word.trim();
+          word = word.toUpperCase();
+          wordsToAdd.add(word);
+        }
+        addAllWords();
+        if (!answers.equals("key")) {
+          fillRest();
+        }
+        //fillRest(); without this, it's just the answers
+      }catch(FileNotFoundException e){
+        System.out.println("File not found: " + fileName);
+        System.exit(1);
+      }
+    }
+
     private void fillRest() {
-      Random index = new Random();
+      //Random index = new Random();
       String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       for (int i = 0; i<data.length; i++) {
         for (int j = 0; j<data[i].length; j++) {
           if (data[i][j] == '_') {
-            data[i][j] = letters.charAt(Math.abs(index.nextInt()%26));
+            data[i][j] = letters.charAt(Math.abs(randgen.nextInt()%26));
           }
         }
       }
@@ -123,6 +155,7 @@ public class WordSearch{
           formatted+=word.toUpperCase();
         }
       }
+      formatted+= " (seed: " + seed + ")";
       return formatted;
     }
     /**Attempts to add a given word to the specified position of the WordGrid.
