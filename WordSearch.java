@@ -37,8 +37,11 @@ public class WordSearch{
         while (in.hasNext()) {
           String word = in.nextLine();
           word = word.trim();
+          word = word.toUpperCase();
           wordsToAdd.add(word);
         }
+        addAllWords();
+        fillRest();
       }catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
@@ -58,13 +61,30 @@ public class WordSearch{
         Scanner in = new Scanner(f);
         while (in.hasNext()) {
           String word = in.next();
+          word = word.trim();
+          word = word.toUpperCase();
           wordsToAdd.add(word);
         }
+        addAllWords();
+        fillRest();
       }catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
       }
     }
+
+    private void fillRest() {
+      Random index = new Random();
+      String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for (int i = 0; i<data.length; i++) {
+        for (int j = 0; j<data[i].length; j++) {
+          if (data[i][j] == '_') {
+            data[i][j] = letters.charAt(Math.abs(index.nextInt()%26));
+          }
+        }
+      }
+    }
+
 
     public ArrayList<String> getWordsToAdd() {
       return wordsToAdd;
@@ -153,7 +173,7 @@ public class WordSearch{
      *
      *@return void
      */
-     public void addAllWords() {
+     private void addAllWords() {
        while (wordsToAdd.size() > 0) {
          int wtaIndex = Math.abs(randgen.nextInt() % wordsToAdd.size());
          String word = wordsToAdd.get(wtaIndex);

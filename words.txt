@@ -7,5 +7,5 @@ pants
 dress
 blouse
 tights
-legings
+leggings
 bracelet
