@@ -23,8 +23,71 @@ public class WordSearch{
      *@param row is the starting height of the WordSearch
      *@param col is the starting width of the WordSearch
      */
-    public WordSearch(int rows, int cols, String fileName){
-      try {
+     /*
+     String directions = "Please exit the program and retry \n The order of
+                          parameters must be either: \n
+                          java Driver rows(int) cols(int) filename(string) \n
+                          java Driver rows(int) cols(int) filename(string) randomSeed(int) \n
+                          java Driver rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key) \n";
+    */
+     public static void main(String[] args) {
+       try{
+         if (args.length  == 3) {
+           WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                         Integer.parseInt(args[1]), args[2]);
+           System.out.println(ws);
+         }
+         else if (args.length == 4) {
+           WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                           Integer.parseInt(args[1]), args[2],
+                                           Integer.parseInt(args[3]));
+           System.out.println(ws);
+         }
+         else if (args.length == 5) {
+           WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
+                                           Integer.parseInt(args[1]), args[2],
+                                           Integer.parseInt(args[3]), args[4]);
+           System.out.println(ws);
+         }
+         else {
+           System.out.println("The order of parameters must be either: ");
+           System.out.println("java WordSearch rows(int) cols(int) filename(string)");
+           System.out.println("java WordSearch rows(int) cols(int) filename(string) randomSeed(int)");
+           System.out.println("java WordSearch rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+         }
+       }catch(FileNotFoundException e){
+         System.out.println("Welcome to WordSearch2018! Here is how to input args: \n The order of parameters must be either: ");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string)");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string) randomSeed(int)");
+         System.out.println("java WordSearch rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+         System.out.println("File not found: " + args[2]);
+         System.exit(1);
+       }catch(NegativeArraySizeException e){
+         System.out.println("Welcome to WordSearch2018! Here is how to input args: \n The order of parameters must be either: ");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string)");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string) randomSeed(int)");
+         System.out.println("java WordSearch rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+         System.out.println("Please rerun program and input positive integers for row and column size");
+         System.exit(1);
+       }catch(ArrayIndexOutOfBoundsException e){
+         System.out.println("Welcome to WordSearch2018! Here is how to input args: \nThe order of parameters must be either: ");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string)");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string) randomSeed(int)");
+         System.out.println("java WordSearch rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+         System.out.println("Must have at least 1 row, please retry");
+         System.exit(1);
+       }catch(NumberFormatException e){
+         System.out.println("Welcome to WordSearch2018! Here is how to input args: \n The order of parameters must be either: ");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string)");
+         System.out.println("java WordSearch rows(int) cols(int) filename(string) randomSeed(int)");
+         System.out.println("java WordSearch rows(int) cols (int) filenamde(string) randomSeed(int) answers(string --> should read key)");
+         System.out.println("Please input integers for rows and cols");
+       }
+
+     }
+
+    public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
+      //try {
         data = new char[rows][cols];
         for (int i = 0; i<data.length; i++) {
           for (int j = 0; j<data[i].length; j++) {
@@ -44,14 +107,20 @@ public class WordSearch{
         }
         addAllWords();
         fillRest();
-      }catch(FileNotFoundException e){
+      /*}catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
-      }
+      }catch(NegativeArraySizeException e){
+        System.out.println("Please rerun program and input positive integers for row and column size");
+        System.exit(1);
+      }catch(ArrayIndexOutOfBoundsException e){
+        System.out.println("Must have at least 1 row, please retry");
+        System.exit(1);
+      }*/
     }
 
-    public WordSearch(int rows,int cols, String fileName, int randSeed){
-      try {
+    public WordSearch(int rows,int cols, String fileName, int randSeed) throws FileNotFoundException{
+      //try {
         data = new char[rows][cols];
         for (int i = 0; i<data.length; i++) {
           for (int j = 0; j<data[i].length; j++) {
@@ -70,14 +139,20 @@ public class WordSearch{
         }
         addAllWords();
         fillRest();
-      }catch(FileNotFoundException e){
+      /*}catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
-      }
+      }catch(NegativeArraySizeException e){
+        System.out.println("Please rerun program and input positive integers for row and column size");
+        System.exit(1);
+      }catch(ArrayIndexOutOfBoundsException e){
+        System.out.println("Must have at least 1 row, please retry");
+        System.exit(1);
+      }*/
     }
 
-    public WordSearch(int rows,int cols, String fileName, int randSeed, String answers){
-      try {
+    public WordSearch(int rows,int cols, String fileName, int randSeed, String answers) throws FileNotFoundException{
+      //try {
         data = new char[rows][cols];
         for (int i = 0; i<data.length; i++) {
           for (int j = 0; j<data[i].length; j++) {
@@ -98,10 +173,29 @@ public class WordSearch{
         if (!answers.equals("key")) {
           fillRest();
         }
+        else {
+          removeUnderscores();
+        }
         //fillRest(); without this, it's just the answers
-      }catch(FileNotFoundException e){
+      /*}catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
+      }catch(NegativeArraySizeException e){
+        System.out.println("Please rerun program and input positive integers for row and column size");
+        System.exit(1);
+      }catch(ArrayIndexOutOfBoundsException e){
+        System.out.println("Must have at least 1 row, please retry");
+        System.exit(1);
+      }*/
+    }
+
+    private void removeUnderscores() {
+      for (int i = 0; i<data.length; i++) {
+        for (int j = 0; j<data[i].length; j++) {
+          if (data[i][j] == '_') {
+            data[i][j] = ' ';
+          }
+        }
       }
     }
 
@@ -171,7 +265,7 @@ public class WordSearch{
      *        false when: the word doesn't fit, OR  rowchange and colchange are both 0,
      *        OR there are overlapping letters that do not match
      */
-     //REMEMBER TO TURN THIS BACK INTO PUBLIC AFTER DOING DRIVER_TEST!!!!!
+     //REMEMBER TO TURN THIS BACK INTO PUBLIC AFTER DOING WordSearch_TEST!!!!!
     private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement) {
       if (r>data.length ||
           c>data[r].length ||
