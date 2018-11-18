@@ -33,14 +33,16 @@ public class WordSearch{
      public static void main(String[] args) {
        try{
          if (args.length  == 3) {
+           Random seedMake = new Random();
+           int fillerSeed = seedMake.nextInt() % 100;
            WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
-                                         Integer.parseInt(args[1]), args[2]);
+                                         Integer.parseInt(args[1]), args[2], fillerSeed, "hey");
            System.out.println(ws);
          }
          else if (args.length == 4) {
            WordSearch ws = new WordSearch(Integer.parseInt(args[0]),
                                            Integer.parseInt(args[1]), args[2],
-                                           Integer.parseInt(args[3]));
+                                           Integer.parseInt(args[3]), "hey");
            System.out.println(ws);
          }
          else if (args.length == 5) {
@@ -85,7 +87,7 @@ public class WordSearch{
        }
 
      }
-
+/*
     public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
       //try {
         data = new char[rows][cols];
@@ -107,7 +109,7 @@ public class WordSearch{
         }
         addAllWords();
         fillRest();
-      /*}catch(FileNotFoundException e){
+      }catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
       }catch(NegativeArraySizeException e){
@@ -116,7 +118,7 @@ public class WordSearch{
       }catch(ArrayIndexOutOfBoundsException e){
         System.out.println("Must have at least 1 row, please retry");
         System.exit(1);
-      }*/
+      }
     }
 
     public WordSearch(int rows,int cols, String fileName, int randSeed) throws FileNotFoundException{
@@ -139,7 +141,7 @@ public class WordSearch{
         }
         addAllWords();
         fillRest();
-      /*}catch(FileNotFoundException e){
+      }catch(FileNotFoundException e){
         System.out.println("File not found: " + fileName);
         System.exit(1);
       }catch(NegativeArraySizeException e){
@@ -148,9 +150,9 @@ public class WordSearch{
       }catch(ArrayIndexOutOfBoundsException e){
         System.out.println("Must have at least 1 row, please retry");
         System.exit(1);
-      }*/
+      }
     }
-
+  */
     public WordSearch(int rows,int cols, String fileName, int randSeed, String answers) throws FileNotFoundException{
       //try {
         data = new char[rows][cols];
@@ -317,8 +319,12 @@ public class WordSearch{
                colIncrement = -1;
              }
              for (int i = 0; i<(data.length * data[0].length); i++) {
-               int r = i % data.length;
-               int c = i % data[0].length;
+               //int r = i % data.length; BEFORE, there was a central tendency b/c the #s weren't random, just kept cycling through
+               //(0,0), (1,1)... over and over 
+               Random rnd = new Random();
+               int r = rnd.nextInt(data.length);
+               //int c = i % data[0].length;
+               int c = rnd.nextInt(data[0].length);
                if (this.addWord(word, r, c, rowIncrement, colIncrement)) {
                  wordsToAdd.remove(word);
                  wordsAdded.add(word);
