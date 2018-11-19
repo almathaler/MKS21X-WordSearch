@@ -320,11 +320,11 @@ public class WordSearch{
              }
              for (int i = 0; i<(data.length * data[0].length); i++) {
                //int r = i % data.length; BEFORE, there was a central tendency b/c the #s weren't random, just kept cycling through
-               //(0,0), (1,1)... over and over 
-               Random rnd = new Random();
-               int r = rnd.nextInt(data.length);
+               //(0,0), (1,1)... over and over
+               //Random rnd = new Random();
+               int r = randgen.nextInt(data.length);
                //int c = i % data[0].length;
-               int c = rnd.nextInt(data[0].length);
+               int c = randgen.nextInt(data[0].length);
                if (this.addWord(word, r, c, rowIncrement, colIncrement)) {
                  wordsToAdd.remove(word);
                  wordsAdded.add(word);
